@@ -1,4 +1,4 @@
-package com.example.billpayment.service.dto;
+package com.example.billpayment.service.dto.user;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

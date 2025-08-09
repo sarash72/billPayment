@@ -1,4 +1,4 @@
-package com.example.billpayment.controller.user;
+package com.example.billpayment.controller;
 
 
 import com.example.billpayment.api.dto.user.LoginUserRequestApi;
