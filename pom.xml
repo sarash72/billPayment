@@ -8,11 +8,13 @@
         <version>3.5.4</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
+
     <groupId>com.example</groupId>
     <artifactId>billPayment</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>billPayment</name>
     <description>billPayment</description>
+    <packaging>pom</packaging>
     <url/>
     <licenses>
         <license/>
@@ -29,7 +31,18 @@
     <properties>
         <java.version>21</java.version>
         <spring-modulith.version>1.4.1</spring-modulith.version>
+        <spring.version>3.5.4</spring.version>
+
     </properties>
+
+    <modules>
+        <module>billPayment-application</module>
+        <module>billPayment-api</module>
+        <module>billPayment-controller</module>
+        <module>billPayment-persistence</module>
+        <module>billPayment-service</module>
+
+    </modules>
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -89,6 +102,8 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+            <version>1.18.38</version> <!-- حتما نسخه رو اضافه کن -->
+            <scope>provided</scope>
             <optional>true</optional>
         </dependency>
         <dependency>
@@ -101,15 +116,30 @@
             <artifactId>spring-modulith-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>io.swagger.core.v3</groupId>
-            <artifactId>swagger-annotations</artifactId>
-            <version>2.2.15</version> <!-- ورژن رو میتونی آخرین ورژن جایگزین کنی -->
-        </dependency>
+
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-            <version>2.1.0</version> <!-- آخرین نسخه پایدار -->
+            <version>2.8.9</version> <!-- یا آخرین نسخه سازگار با Spring Boot 3.5 -->
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/io.springfox/springfox-swagger2 -->
+<!--        <dependency>-->
+<!--            <groupId>io.springfox</groupId>-->
+<!--            <artifactId>springfox-swagger2</artifactId>-->
+<!--            <version>3.0.0</version>-->
+<!--        </dependency>-->
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+            <version>1.5.5.Final</version> <!-- آخرین نسخه را چک کن -->
+        </dependency>
+
+        <!-- MapStruct annotation processor -->
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct-processor</artifactId>
+            <version>1.5.5.Final</version>
+            <scope>provided</scope>
         </dependency>
 <!--        <dependency>-->
 <!--            <groupId>org.springframework.security</groupId>-->
@@ -117,14 +147,47 @@
 <!--            <scope>test</scope>-->
 <!--        </dependency>-->
     </dependencies>
+
+
     <dependencyManagement>
         <dependencies>
+
+            <dependency>
+                <groupId>com.example</groupId>
+                <artifactId>billPayment-service</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.example</groupId>
+                <artifactId>billPayment-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.example</groupId>
+                <artifactId>billPayment-controller</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.example</groupId>
+                <artifactId>billPayment-persistence</artifactId>
+                <version>${project.version}</version>
+            </dependency>
             <dependency>
                 <groupId>org.springframework.modulith</groupId>
                 <artifactId>spring-modulith-bom</artifactId>
                 <version>${spring-modulith.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-web</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-security</artifactId>
+                <version>${spring.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -134,8 +197,16 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+<!--                <version>3.11.0</version> &lt;!&ndash; اگر قدیمی است، به روزش کن &ndash;&gt;-->
                 <configuration>
+                    <source>21</source>
+                    <target>21</target>
                     <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.mapstruct</groupId>
+                            <artifactId>mapstruct-processor</artifactId>
+                            <version>1.5.5.Final</version>
+                        </path>
                         <path>
                             <groupId>org.springframework.boot</groupId>
                             <artifactId>spring-boot-configuration-processor</artifactId>
@@ -143,23 +214,25 @@
                         <path>
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>
+                            <version>1.18.38</version> <!-- یا ورژنی که داری -->
                         </path>
                     </annotationProcessorPaths>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <excludes>
-                        <exclude>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                        </exclude>
-                    </excludes>
-                </configuration>
-            </plugin>
+<!--            <plugin>-->
+<!--                <groupId>org.springframework.boot</groupId>-->
+<!--                <artifactId>spring-boot-maven-plugin</artifactId>-->
+<!--                <configuration>-->
+<!--                    <excludes>-->
+<!--                        <exclude>-->
+<!--                            <groupId>org.projectlombok</groupId>-->
+<!--                            <artifactId>lombok</artifactId>-->
+<!--                        </exclude>-->
+<!--                    </excludes>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
         </plugins>
     </build>
+
 
 </project>
