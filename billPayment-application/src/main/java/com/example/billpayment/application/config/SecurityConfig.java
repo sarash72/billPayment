@@ -1,6 +1,6 @@
 package com.example.billpayment.application.config;
 
-import com.example.billpayment.service.impl.UserServiceImpl;
+import com.example.billpayment.service.impl.user.UserServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
