@@ -1,5 +1,6 @@
 package com.example.billpayment.api.facade;
 
+import com.example.billpayment.api.dto.bill.AddBillRequestApi;
 import com.example.billpayment.api.dto.user.LoginUserRequestApi;
 import com.example.billpayment.api.dto.user.RegisterUserRequestApi;
 import org.springframework.http.MediaType;
@@ -7,16 +8,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@RequestMapping(path = UserFacade.PATH)
-public interface UserFacade {
+@RequestMapping(path = BillFacade.PATH)
+public interface BillFacade {
     String PATH = "/billPayment";
 
-    @PostMapping(value = "register-user",
+    @PostMapping(value = "add-bill",
             produces = MediaType.APPLICATION_JSON_VALUE)
-    void insertUser(RegisterUserRequestApi userRequestDto);
+    void addBill(AddBillRequestApi addBillRequestApi);
 
-    @PostMapping(value = "login-user",
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<String> loginUser(LoginUserRequestApi userRequestDto);
 }

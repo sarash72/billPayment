@@ -1,4 +1,4 @@
-package com.example.billpayment.api.dto;
+package com.example.billpayment.api.dto.user;
 
 
 import com.fasterxml.jackson.annotation.JsonInclude;

@@ -1,10 +1,9 @@
 package com.example.billpayment.service.impl.mapper;
 
 
-import com.example.billpayment.api.dto.RegisterUserRequestApi;
+import com.example.billpayment.api.dto.user.RegisterUserRequestApi;
 import com.example.billpayment.service.dto.RegisterUserRequestDto;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring" )
 public interface UserServiceMapper {

@@ -1,11 +1,10 @@
 package com.example.billpayment.controller.user;
 
 
-import com.example.billpayment.api.dto.LoginUserRequestApi;
-import com.example.billpayment.api.dto.RegisterUserRequestApi;
+import com.example.billpayment.api.dto.user.LoginUserRequestApi;
+import com.example.billpayment.api.dto.user.RegisterUserRequestApi;
 import com.example.billpayment.api.facade.UserFacade;
 import com.example.billpayment.service.api.UserAppService;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

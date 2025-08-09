@@ -1,6 +1,6 @@
 package com.example.billpayment.service.impl;
 
-import com.example.billpayment.api.dto.RegisterUserRequestApi;
+import com.example.billpayment.api.dto.user.RegisterUserRequestApi;
 import com.example.billpayment.service.api.UserAppService;
 import com.example.billpayment.service.api.persistence.UserServiceApi;
 import com.example.billpayment.service.dto.MyUserDetails;

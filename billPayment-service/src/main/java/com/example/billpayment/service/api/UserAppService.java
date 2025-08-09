@@ -1,6 +1,6 @@
 package com.example.billpayment.service.api;
 
-import com.example.billpayment.api.dto.RegisterUserRequestApi;
+import com.example.billpayment.api.dto.user.RegisterUserRequestApi;
 
 public interface UserAppService {
 
