@@ -29,37 +29,37 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-//        http
-//                .authorizeHttpRequests(authorize -> authorize
-//                        .anyRequest().permitAll()  // همه درخواست‌ها بدون احراز هویت
-//                )
-//                .csrf(csrf -> csrf.disable()) // غیرفعال کردن CSRF (برای راحتی تست API)
-//                .formLogin(form -> form.disable()) ;// غیرفعال کردن فرم لاگین
-//
-//        return http.build();
-
         http
-                .csrf(csrf -> csrf.disable())
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(
-                                "/billPayment/loginUser",
-                                "/billPayment/register-user",
-                                "/swagger-ui/**",
-                                "/swagger-ui.html",
-                                "/swagger-ui/**",
-                                "/v3/api-docs",
-                                "/v3/api-docs/**",
-                                "/swagger-resources/**",
-                                "/webjars/**",
-                                "/h2-console/**",
-                                "/v3/api-docs/**").permitAll()
-                        .anyRequest().authenticated()
+                .authorizeHttpRequests(authorize -> authorize
+                        .anyRequest().permitAll()  // همه درخواست‌ها بدون احراز هویت
                 )
-                .formLogin(form -> form.disable())
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.sameOrigin())); // این خط مهمه برای H2 Console;
+                .csrf(csrf -> csrf.disable()) // غیرفعال کردن CSRF (برای راحتی تست API)
+                .formLogin(form -> form.disable()) ;// غیرفعال کردن فرم لاگین
 
         return http.build();
+
+//        http
+//                .csrf(csrf -> csrf.disable())
+//                .authorizeHttpRequests(auth -> auth
+//                        .requestMatchers(
+//                                "/billPayment/loginUser",
+//                                "/billPayment/register-user",
+//                                "/swagger-ui/**",
+//                                "/swagger-ui.html",
+//                                "/swagger-ui/**",
+//                                "/v3/api-docs",
+//                                "/v3/api-docs/**",
+//                                "/swagger-resources/**",
+//                                "/webjars/**",
+//                                "/h2-console/**",
+//                                "/v3/api-docs/**").permitAll()
+//                        .anyRequest().authenticated()
+//                )
+//                .formLogin(form -> form.disable())
+//                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+//                .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.sameOrigin())); // این خط مهمه برای H2 Console;
+//
+//        return http.build();
 //        http
 //                .authorizeHttpRequests(auth -> auth
 //                        .requestMatchers("/**"

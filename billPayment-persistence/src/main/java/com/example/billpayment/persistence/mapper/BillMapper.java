@@ -11,10 +11,5 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface BillMapper {
 
-
-    //    @Mapping(source = "username", target = "username")
-    @Mapping(source = "password", target = "password")
-    RegisterUserRequestDto toRegisterUserRequestDto( User user);
-
     Bill toBillEntity(AddBillRequestDto addBillRequestDto);
 }
