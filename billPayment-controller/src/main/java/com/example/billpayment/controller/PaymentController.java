@@ -14,10 +14,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @Slf4j
 @RequestMapping(path = UserFacade.PATH)
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class PaymentController implements PaymentFacade {
 
-    PaymentService paymentService;
+   private final PaymentService paymentService;
+
+    public PaymentController(PaymentService paymentService) {
+        this.paymentService = paymentService;
+    }
 
     @Override
     public PaymentResponseApi payBill(PaymentRequestApi paymentRequestApi) {

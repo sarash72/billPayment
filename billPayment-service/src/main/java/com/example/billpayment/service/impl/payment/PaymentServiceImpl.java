@@ -9,11 +9,16 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class PaymentServiceImpl implements PaymentService {
 
-    PaymentServiceApi paymentServiceApi;
-    PaymentMapper paymentMapper;
+   private final PaymentServiceApi paymentServiceApi;
+   private final PaymentMapper paymentMapper;
+
+    public PaymentServiceImpl(PaymentServiceApi paymentServiceApi, PaymentMapper paymentMapper) {
+        this.paymentServiceApi = paymentServiceApi;
+        this.paymentMapper = paymentMapper;
+    }
 
     @Override
     public PaymentResponseApi payBill(PaymentRequestApi paymentRequestDto) {
