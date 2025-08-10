@@ -31,7 +31,7 @@ public class AddBillRequestDto {
 
     private Status status;
 
-    private String userId;
+    private Long userId;
 
 
     public BillType getBillType() {
@@ -74,11 +74,11 @@ public class AddBillRequestDto {
         this.status = status;
     }
 
-    public String getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 }

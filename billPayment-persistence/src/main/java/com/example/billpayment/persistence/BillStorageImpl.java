@@ -1,5 +1,7 @@
 package com.example.billpayment.persistence;
 
+import com.example.billpayment.persistence.entity.Bill;
+import com.example.billpayment.persistence.entity.User;
 import com.example.billpayment.persistence.mapper.BillMapper;
 import com.example.billpayment.persistence.mapper.UserMapper;
 import com.example.billpayment.persistence.repository.BillRepository;
@@ -19,12 +21,16 @@ import org.springframework.stereotype.Component;
 public class BillStorageImpl implements BillServiceApi {
 
     private final BillRepository billRepository;
+    private final UserRepository userRepository;
     private final BillMapper billMapper;
-
 
 
     @Override
     public void addBill(AddBillRequestDto addBillRequestDto) {
-        billRepository.save(billMapper.toBillEntity(addBillRequestDto));
+        User user = userRepository.findById(addBillRequestDto.getUserId())
+                .orElseThrow(() -> new RuntimeException("User not found with id: " + addBillRequestDto.getUserId()));
+        Bill bill = billMapper.toBillEntity(addBillRequestDto);
+        bill.setUser(user);
+        billRepository.save(bill);
     }
 }
