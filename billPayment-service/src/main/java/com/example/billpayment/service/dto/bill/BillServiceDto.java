@@ -18,15 +18,12 @@ import java.time.LocalDate;
 @Builder
 public class BillServiceDto {
 
-    @Column(nullable = false)
     private BillType billType; // مثلا برق، آب، گاز
 
     private String billTd;
 
-    @Column(nullable = false)
     private BigDecimal amount;
 
-    @Column(nullable = false)
     private LocalDate dueDate;
 
     private Status status;
