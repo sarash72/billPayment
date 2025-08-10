@@ -16,7 +16,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class AddBillRequestDto {
+public class BillServiceDto {
 
     @Column(nullable = false)
     private BillType billType; // مثلا برق، آب، گاز

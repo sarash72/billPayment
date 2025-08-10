@@ -1,11 +1,14 @@
 package com.example.billpayment.service.api;
 
-import com.example.billpayment.api.dto.bill.AddBillRequestApi;
-import com.example.billpayment.api.dto.user.RegisterUserRequestApi;
-import com.example.billpayment.service.dto.bill.AddBillRequestDto;
+import com.example.billpayment.api.dto.bill.BillApi;
+import com.example.billpayment.api.dto.bill.BillWithUserRequestApi;
+
+import java.util.List;
 
 public interface BillAppService {
 
-    void addBill(AddBillRequestApi addBillRequestApi);
+    void addBill(BillApi addBillRequestApi);
+
+    List<BillApi> getBillByUsername(BillWithUserRequestApi billWithUserRequestApi);
 
 }
