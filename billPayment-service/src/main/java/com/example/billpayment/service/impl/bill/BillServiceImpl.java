@@ -1,10 +1,13 @@
 package com.example.billpayment.service.impl.bill;
 
 import com.example.billpayment.api.dto.bill.BillApi;
+import com.example.billpayment.api.dto.bill.BillWithUserRequestApi;
 import com.example.billpayment.service.api.BillAppService;
 import com.example.billpayment.service.api.persistence.BillServiceApi;
 import com.example.billpayment.service.impl.bill.mapper.BillServiceMapper;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 //@RequiredArgsConstructor
@@ -21,6 +24,11 @@ public class BillServiceImpl implements BillAppService {
     @Override
     public void addBill(BillApi addBillRequestApi) {
         billServiceApi.addBill(billServiceMapper.toAddBillRequestDto(addBillRequestApi));
+    }
+
+    @Override
+    public List<BillApi> getBillByUsername(BillWithUserRequestApi billWithUserRequestApi) {
+        return billServiceMapper.toBillApiDtoList(billServiceApi.getBillByUsername(billServiceMapper.toBillWithUserRequestDto(billWithUserRequestApi)));
     }
 }
 

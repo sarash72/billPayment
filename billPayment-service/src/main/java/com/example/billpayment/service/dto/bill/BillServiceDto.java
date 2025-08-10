@@ -37,48 +37,48 @@ public class BillServiceDto {
     public BillType getBillType() {
         return billType;
     }
-
-    public void setBillType(BillType billType) {
-        this.billType = billType;
-    }
-
-    public String getBillTd() {
-        return billTd;
-    }
-
-    public void setBillTd(String billTd) {
-        this.billTd = billTd;
-    }
-
-    public BigDecimal getAmount() {
-        return amount;
-    }
-
-    public void setAmount(BigDecimal amount) {
-        this.amount = amount;
-    }
-
-    public LocalDate getDueDate() {
-        return dueDate;
-    }
-
-    public void setDueDate(LocalDate dueDate) {
-        this.dueDate = dueDate;
-    }
-
-    public Status getStatus() {
-        return status;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
+//
+//    public void setBillType(BillType billType) {
+//        this.billType = billType;
+//    }
+//
+//    public String getBillTd() {
+//        return billTd;
+//    }
+//
+//    public void setBillTd(String billTd) {
+//        this.billTd = billTd;
+//    }
+//
+//    public BigDecimal getAmount() {
+//        return amount;
+//    }
+//
+//    public void setAmount(BigDecimal amount) {
+//        this.amount = amount;
+//    }
+//
+//    public LocalDate getDueDate() {
+//        return dueDate;
+//    }
+//
+//    public void setDueDate(LocalDate dueDate) {
+//        this.dueDate = dueDate;
+//    }
+//
+//    public Status getStatus() {
+//        return status;
+//    }
+//
+//    public void setStatus(Status status) {
+//        this.status = status;
+//    }
+//
+//    public Long getUserId() {
+//        return userId;
+//    }
+//
+//    public void setUserId(Long userId) {
+//        this.userId = userId;
+//    }
 }

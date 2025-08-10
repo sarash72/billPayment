@@ -33,7 +33,7 @@ public class BillStorageImpl implements BillServiceApi {
 
     @Override
     public List<BillServiceDto> getBillByUsername(BillWithUserRequestDto billWithUserRequestDto) {
-        return List.of();
+      return billMapper.toBillDtoList(billRepository.findByUser_Username(billWithUserRequestDto.getUsername()));
     }
 
 
