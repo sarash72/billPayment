@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @Slf4j
-@RequestMapping(path = UserFacade.PATH)
+@RequestMapping(path = PaymentFacade.PATH)
 //@RequiredArgsConstructor
 public class PaymentController implements PaymentFacade {
 
