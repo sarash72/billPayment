@@ -26,7 +26,10 @@ public class PaymentStorageImpl implements PaymentServiceApi {
     @Override
     @Transactional
     public PaymentResponseDto payBill(PaymentRequestDto paymentRequestDto) {
-        // پیدا کردن قبض
+
+        /** پیدا کردن قبض
+         *
+         */
         Optional<Bill> optionalBill = billRepository.findById(paymentRequestDto.getBillId());
         if (optionalBill.isEmpty()) {
             throw new RuntimeException("قبض پیدا نشد.");
