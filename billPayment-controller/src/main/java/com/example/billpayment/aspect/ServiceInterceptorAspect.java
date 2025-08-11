@@ -20,18 +20,18 @@ public class ServiceInterceptorAspect {
     public void allServiceMethod(){
     }
 
-    @Before("allServiceMethod()")
-    public void beforeServiceMethod(JoinPoint joinPoint){
-        Object[] args = joinPoint.getArgs();
-        String methodName = joinPoint.getSignature().getName();
-        LOGGER.info("before service method name : {}",methodName);
-        LOGGER.info("service data start : {}",args[0]);
-    }
+//    @Before("allServiceMethod()")
+//    public void beforeServiceMethod(JoinPoint joinPoint){
+//        Object[] args = joinPoint.getArgs();
+//        String methodName = joinPoint.getSignature().getName();
+//        LOGGER.info("before service method name : {}",methodName);
+//        LOGGER.info("service data start : {}",args[0]);
+//    }
 
-    @AfterReturning(value = "allServiceMethod()" , returning = "result")
-    public void afterServiceMethod(JoinPoint joinPoint, Object result){
-        String methodName = joinPoint.getSignature().getName();
-        LOGGER.info("after service method name : {}",methodName);
-        LOGGER.info("service data end : {}",result);
-    }
+//    @AfterReturning(value = "allServiceMethod()" , returning = "result")
+//    public void afterServiceMethod(JoinPoint joinPoint, Object result){
+//        String methodName = joinPoint.getSignature().getName();
+//        LOGGER.info("after service method name : {}",methodName);
+//        LOGGER.info("service data end : {}",result);
+//    }
 }
