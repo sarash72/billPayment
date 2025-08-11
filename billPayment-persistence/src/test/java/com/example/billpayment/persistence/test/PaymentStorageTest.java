@@ -3,6 +3,7 @@ package com.example.billpayment.persistence.test;
 
 import com.example.billpayment.persistence.PaymentStorageImpl;
 import com.example.billpayment.persistence.entity.Bill;
+import com.example.billpayment.persistence.entity.BillType;
 import com.example.billpayment.persistence.entity.Payment;
 import com.example.billpayment.persistence.entity.Status;
 import com.example.billpayment.persistence.repository.BillRepository;
@@ -16,6 +17,10 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -43,6 +48,8 @@ public class PaymentStorageTest {
         bill = new Bill();
         bill.setId(1L);
         bill.setStatus(Status.UNPAID);
+        bill.setBillType(BillType.GAS);
+        bill.setAmount(new BigDecimal(100));
     }
 
     @Test
