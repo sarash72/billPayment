@@ -31,7 +31,7 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v4
         with:
-          context: .                          # مسیر ریشه پروژه
+          context: ./billPayment-application          # کانتکست به فولدر ماژول اپلیکیشن
           file: billPayment-application/Dockerfile  # مسیر Dockerfile
           push: true
           tags: sarash72/billpayment:latest
