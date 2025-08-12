@@ -21,7 +21,7 @@ public class BillApi {
 
     private BillType billType; // مثلا برق، آب، گاز
 
-    private String billTd;
+    private String billId;
 
     private BigDecimal amount;
 
@@ -29,6 +29,6 @@ public class BillApi {
 
     private Status status;
 
-    private String userId;
+    private Long userId;
 
 }

@@ -4,6 +4,7 @@ package com.example.billpayment.persistence.mapper;
 import com.example.billpayment.persistence.entity.Bill;
 import com.example.billpayment.service.dto.bill.BillServiceDto;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 import java.util.List;
 
@@ -12,6 +13,8 @@ public interface BillMapper {
 
     Bill toBillEntity(BillServiceDto addBillRequestDto);
     List<BillServiceDto> toBillDtoList(List<Bill> billList);
+
+    @Mapping(source = "user.id", target = "userId")
     BillServiceDto toBillDto(Bill bill);
 
 }

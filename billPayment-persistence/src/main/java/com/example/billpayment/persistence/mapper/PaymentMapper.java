@@ -7,6 +7,7 @@ import com.example.billpayment.service.dto.bill.BillServiceDto;
 import com.example.billpayment.service.dto.payment.PaymentDto;
 import com.example.billpayment.service.dto.payment.PaymentRequestDto;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 import java.util.List;
 

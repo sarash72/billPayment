@@ -43,6 +43,7 @@ public class PaymentServiceImpl implements PaymentService {
         /** پیدا کردن قبض
          *
          */
+        billAppService.getBillByBillId(paymentRequestDto.getBillId());
         BillServiceDto myBill = billServiceMapper.toBillRequestDto(billAppService.getBillByBillId(paymentRequestDto.getBillId()));
         if (myBill==null || myBill.getBillId().isEmpty()) {
             throw new RuntimeException("قبض پیدا نشد.");
@@ -56,7 +57,7 @@ public class PaymentServiceImpl implements PaymentService {
         PaymentDto payment = PaymentDto.builder()
                 .refId(refId)
                 .paymentDate(LocalDate.now())
-                .bill(myBill)
+                .billId(myBill.getBillId())
                 .build();
 
         /**
@@ -64,10 +65,18 @@ public class PaymentServiceImpl implements PaymentService {
          */
         PaymentStrategy strategy = PaymentFactory.getPaymentStrategy(paymentRequestDto.getPaymentType());
         strategy.pay(paymentRequestDto.getBillId());
-        paymentServiceApi.savePayment(payment);
 
         myBill.setStatus(Status.PAID);
-        billAppService.addBill(billServiceMapper.toBillApiDto(myBill));
+        System.out.println("22222222222...."+myBill.getUserId());
+        System.out.println("..............:"+myBill.toString());
+        System.out.println(".111111111.............:"+myBill.getUserId().toString());
+      //  billAppService.addBill(billServiceMapper.toBillApiDto(myBill));
+
+
+//        payment.setBill(myBill);
+
+        paymentServiceApi.savePayment(payment);
+
 
         PaymentResponseDto paymentResponseDto = new PaymentResponseDto();
         paymentResponseDto.setRefId(refId);

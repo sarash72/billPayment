@@ -1,5 +1,8 @@
 package com.example.billpayment.persistence;
 
+import com.example.billpayment.persistence.entity.Bill;
+import com.example.billpayment.persistence.entity.Payment;
+import com.example.billpayment.persistence.entity.User;
 import com.example.billpayment.persistence.mapper.PaymentMapper;
 import com.example.billpayment.persistence.repository.BillRepository;
 import com.example.billpayment.persistence.repository.PaymentRepository;
@@ -16,6 +19,7 @@ public class PaymentStorageImpl implements PaymentServiceApi {
 
     private final PaymentRepository paymentRepository;
     private final PaymentMapper paymentMapper;
+    private final BillRepository billRepository;
 
 
 //    @Override
@@ -62,7 +66,14 @@ public class PaymentStorageImpl implements PaymentServiceApi {
 
     @Override
     public void savePayment(PaymentDto paymentDto) {
-        paymentRepository.save(paymentMapper.toPaymentEntity(paymentDto));
+        System.out.println("1..........." + paymentDto.getBillId());
+        Bill bill = billRepository.findByBillId(paymentDto.getBillId());
+        if (bill == null) {
+            new RuntimeException("bill not found with id: " + paymentDto.getBillId());
+        }
+        Payment payment = paymentMapper.toPaymentEntity(paymentDto);
+        payment.setBill(bill);
+        paymentRepository.save(payment);
     }
 
 }

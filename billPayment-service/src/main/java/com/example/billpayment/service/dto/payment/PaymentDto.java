@@ -20,5 +20,5 @@ public class PaymentDto {
 
     private LocalDate paymentDate;
 
-    private BillServiceDto bill;
+    private String billId;
 }
