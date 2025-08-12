@@ -36,5 +36,10 @@ public class BillStorageImpl implements BillServiceApi {
       return billMapper.toBillDtoList(billRepository.findByUser_Username(billWithUserRequestDto.getUsername()));
     }
 
+    @Override
+    public BillServiceDto getBillById(Long billId) {
+        return billMapper.toBillDto(billRepository.findByBillId(billId));
+    }
+
 
 }

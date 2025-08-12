@@ -1,7 +1,5 @@
 package com.example.billpayment.service.dto.payment;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
 @Data
@@ -11,4 +9,5 @@ import lombok.*;
 public class PaymentRequestDto {
 
    private Long billId;
+   private PaymentType paymentType;
 }

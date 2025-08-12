@@ -21,4 +21,9 @@ public interface BillFacade {
             consumes = MediaType.APPLICATION_JSON_VALUE)
     List<BillApi> getBillByUsername(BillWithUserRequestApi billWithUserRequestApi);
 
+    @PostMapping(value = "get-bill-byBillId",
+            produces = MediaType.APPLICATION_JSON_VALUE,
+            consumes = MediaType.APPLICATION_JSON_VALUE)
+    BillApi getBillByBillId(Long billId);
+
 }

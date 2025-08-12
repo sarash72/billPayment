@@ -12,4 +12,6 @@ public interface BillMapper {
 
     Bill toBillEntity(BillServiceDto addBillRequestDto);
     List<BillServiceDto> toBillDtoList(List<Bill> billList);
+    BillServiceDto toBillDto(Bill bill);
+
 }

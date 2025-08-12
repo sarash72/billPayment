@@ -30,5 +30,10 @@ public class BillServiceImpl implements BillAppService {
     public List<BillApi> getBillByUsername(BillWithUserRequestApi billWithUserRequestApi) {
         return billServiceMapper.toBillApiDtoList(billServiceApi.getBillByUsername(billServiceMapper.toBillWithUserRequestDto(billWithUserRequestApi)));
     }
+
+    @Override
+    public BillApi getBillById(Long billId) {
+        return null;
+    }
 }
 

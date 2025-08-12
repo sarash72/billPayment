@@ -13,4 +13,6 @@ import lombok.*;
 public class PaymentRequestApi {
 
    private Long billId;
+
+   private PaymentType paymentType;
 }

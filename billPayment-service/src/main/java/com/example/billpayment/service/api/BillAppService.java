@@ -11,4 +11,5 @@ public interface BillAppService {
 
     List<BillApi> getBillByUsername(BillWithUserRequestApi billWithUserRequestApi);
 
+    BillApi getBillById(Long billId);
 }

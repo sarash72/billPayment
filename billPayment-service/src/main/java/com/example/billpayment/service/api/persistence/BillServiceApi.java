@@ -11,6 +11,9 @@ import java.util.List;
 public interface BillServiceApi {
 
     void addBill(BillServiceDto addBillRequestDto);
+
     List<BillServiceDto> getBillByUsername(BillWithUserRequestDto billWithUserRequestDto);
 
-    }
+    BillServiceDto getBillById(Long billId);
+
+}
