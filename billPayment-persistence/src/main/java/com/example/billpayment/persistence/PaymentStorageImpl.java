@@ -3,9 +3,11 @@ package com.example.billpayment.persistence;
 import com.example.billpayment.persistence.entity.Bill;
 import com.example.billpayment.persistence.entity.Payment;
 import com.example.billpayment.persistence.entity.Status;
+import com.example.billpayment.persistence.mapper.PaymentMapper;
 import com.example.billpayment.persistence.repository.BillRepository;
 import com.example.billpayment.persistence.repository.PaymentRepository;
 import com.example.billpayment.service.api.persistence.PaymentServiceApi;
+import com.example.billpayment.service.dto.payment.PaymentDto;
 import com.example.billpayment.service.dto.payment.PaymentRequestDto;
 import com.example.billpayment.service.dto.payment.PaymentResponseDto;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +24,8 @@ public class PaymentStorageImpl implements PaymentServiceApi {
 
     private final BillRepository billRepository;
     private final PaymentRepository paymentRepository;
+    private final PaymentMapper paymentMapper;
+
 
     @Override
     @Transactional
@@ -58,6 +62,11 @@ public class PaymentStorageImpl implements PaymentServiceApi {
         PaymentResponseDto paymentResponseDto = new PaymentResponseDto();
         paymentResponseDto.setRefId(refId);
         return paymentResponseDto;
+    }
+
+    @Override
+    public void savePayment(PaymentDto paymentDto) {
+        paymentRepository.save(paymentMapper.toPaymentEntity(paymentDto));
     }
 
 }
