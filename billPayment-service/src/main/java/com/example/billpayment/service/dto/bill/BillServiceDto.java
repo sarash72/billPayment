@@ -2,7 +2,6 @@ package com.example.billpayment.service.dto.bill;
 
 import com.example.billpayment.api.dto.enumeration.BillType;
 import com.example.billpayment.api.dto.enumeration.Status;
-import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,7 +19,7 @@ public class BillServiceDto {
 
     private BillType billType; // مثلا برق، آب، گاز
 
-    private String billTd;
+    private String billId;
 
     private BigDecimal amount;
 

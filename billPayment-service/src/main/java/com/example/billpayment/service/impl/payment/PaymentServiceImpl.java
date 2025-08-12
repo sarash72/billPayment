@@ -44,7 +44,7 @@ public class PaymentServiceImpl implements PaymentService {
          *
          */
         BillServiceDto myBill = billServiceMapper.toBillRequestDto(billAppService.getBillByBillId(paymentRequestDto.getBillId()));
-        if (myBill.getBillTd().isEmpty()) {
+        if (myBill==null || myBill.getBillId().isEmpty()) {
             throw new RuntimeException("قبض پیدا نشد.");
         }
         if (myBill.getStatus() == Status.PAID) {
