@@ -15,7 +15,6 @@ import lombok.*;
 @Schema(name = "userRegister", description = "user register service")
 public class RegisterUserRequestApi {
 
-//    @Schema(description = "نام کاربر")
     private String username;
 
     private String fullName;

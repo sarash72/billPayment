@@ -3,6 +3,8 @@ package com.example.billpayment.service.impl.payment;
 import com.example.billpayment.api.dto.enumeration.Status;
 import com.example.billpayment.api.dto.payment.PaymentRequestApi;
 import com.example.billpayment.api.dto.payment.PaymentResponseApi;
+import com.example.billpayment.api.exception.BillPaidException;
+import com.example.billpayment.api.exception.NotFoundBillException;
 import com.example.billpayment.service.api.BillAppService;
 import com.example.billpayment.service.api.PaymentService;
 import com.example.billpayment.service.api.persistence.PaymentServiceApi;
@@ -38,7 +40,7 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     @Transactional
-    public PaymentResponseApi payBill(PaymentRequestApi paymentRequestApi) {
+    public PaymentResponseApi payBill(PaymentRequestApi paymentRequestApi) throws BillPaidException, NotFoundBillException {
         PaymentRequestDto paymentRequestDto = paymentMapper.toPaymentRequestDto(paymentRequestApi);
         /** پیدا کردن قبض
          *
@@ -46,10 +48,10 @@ public class PaymentServiceImpl implements PaymentService {
         billAppService.getBillByBillId(paymentRequestDto.getBillId());
         BillServiceDto myBill = billServiceMapper.toBillRequestDto(billAppService.getBillByBillId(paymentRequestDto.getBillId()));
         if (myBill==null || myBill.getBillId().isEmpty()) {
-            throw new RuntimeException("قبض پیدا نشد.");
+            throw new NotFoundBillException();
         }
         if (myBill.getStatus() == Status.PAID) {
-            throw new RuntimeException("قبض قبلاً پرداخت شده است.");
+            throw new BillPaidException();
         }
 
         String refId = UUID.randomUUID().toString();

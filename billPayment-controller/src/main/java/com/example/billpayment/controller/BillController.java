@@ -6,6 +6,7 @@ import com.example.billpayment.api.dto.bill.BillWithUserRequestApi;
 import com.example.billpayment.api.facade.BillFacade;
 import com.example.billpayment.api.facade.UserFacade;
 import com.example.billpayment.service.api.BillAppService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +18,7 @@ import java.util.List;
 @Slf4j
 @RequestMapping(path = UserFacade.PATH)
 //@RequiredArgsConstructor
+@Tag(name = "Bill services" , description = Constant.BILL_CONTROLLER_DESCRIPTION)
 public class BillController implements BillFacade {
 
     private final BillAppService billAppService;

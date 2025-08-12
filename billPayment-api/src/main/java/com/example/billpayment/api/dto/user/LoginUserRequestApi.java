@@ -15,7 +15,6 @@ import lombok.*;
 @Schema(name = "userLogin", description = "user login service")
 public class LoginUserRequestApi {
 
-//    @Schema(description = "نام کاربر")
     private String username;
 
     private String password;

@@ -8,6 +8,7 @@ import com.example.billpayment.service.api.UserAppService;
 import com.example.billpayment.service.util.JwtUtil;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,13 +29,13 @@ import java.util.Map;
 @Slf4j
 @RequestMapping(path = UserFacade.PATH)
 //@RequiredArgsConstructor
+@Tag(name = "User services", description = Constant.USER_CONTROLLER_DESCRIPTION)
 public class UserController implements UserFacade {
 
     private final AuthenticationManager authenticationManager;
     private final UserAppService userAppService;
-    private final long JWT_EXPIRATION = 604800000L;  // زمان انقضا (مثلا یک هفته)
-    private final String JWT_SECRET = "secret-key";  // کلید مخفی
-private final JwtUtil jwtUtil;
+    private final JwtUtil jwtUtil;
+
     public UserController(AuthenticationManager authenticationManager, UserAppService userAppService, JwtUtil jwtUtil) {
         this.authenticationManager = authenticationManager;
         this.userAppService = userAppService;
@@ -51,11 +52,7 @@ private final JwtUtil jwtUtil;
         Map<String, String> response = new HashMap<>();
 
         try {
-            UsernamePasswordAuthenticationToken authToken =
-                    new UsernamePasswordAuthenticationToken(userRequestDto.getUsername(), userRequestDto.getPassword());
-
-//            Authentication authentication = authenticationManager.authenticate(authToken);
-//            SecurityContextHolder.getContext().setAuthentication(authentication);
+//            UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userRequestDto.getUsername(), userRequestDto.getPassword());
 
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(userRequestDto.getUsername(), userRequestDto.getPassword())
@@ -67,7 +64,6 @@ private final JwtUtil jwtUtil;
             response.put("token", token);
             return ResponseEntity.ok(response);
 
-            // اینجا می‌تونی JWT بسازی یا فقط پیام موفقیت بدهی
         } catch (AuthenticationException e) {
             response.put("error", "Invalid credentials");
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
@@ -76,17 +72,6 @@ private final JwtUtil jwtUtil;
 
     }
 
-    public String generateToken(String username) {
-        Date now = new Date();
-        Date expiryDate = new Date(now.getTime() + JWT_EXPIRATION);
-
-        return Jwts.builder()
-                .setSubject(username)
-                .setIssuedAt(now)
-                .setExpiration(expiryDate)
-                .signWith(SignatureAlgorithm.HS512, JWT_SECRET)
-                .compact();
-    }
 }
 
 
