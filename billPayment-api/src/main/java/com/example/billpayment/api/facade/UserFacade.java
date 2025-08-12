@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.Map;
+
 @RequestMapping(path = UserFacade.PATH)
 public interface UserFacade {
     String PATH = "/billPayment";
@@ -18,5 +20,5 @@ public interface UserFacade {
     @PostMapping(value = "login-user",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<String> loginUser(LoginUserRequestApi userRequestDto);
+    ResponseEntity<Map<String, String>> loginUser(LoginUserRequestApi userRequestDto);
 }

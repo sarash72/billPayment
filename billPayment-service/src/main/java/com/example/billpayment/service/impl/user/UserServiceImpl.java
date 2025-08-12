@@ -3,13 +3,14 @@ package com.example.billpayment.service.impl.user;
 import com.example.billpayment.api.dto.user.RegisterUserRequestApi;
 import com.example.billpayment.service.api.UserAppService;
 import com.example.billpayment.service.api.persistence.UserServiceApi;
-import com.example.billpayment.service.dto.user.MyUserDetails;
 import com.example.billpayment.service.dto.user.RegisterUserRequestDto;
 import com.example.billpayment.service.impl.user.mapper.UserServiceMapper;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 
 @Service
 //@RequiredArgsConstructor
@@ -32,7 +33,12 @@ public class UserServiceImpl implements UserAppService, UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         RegisterUserRequestDto user = userServiceApi.findByUsername(username);
-        return new MyUserDetails(user);
+        return new org.springframework.security.core.userdetails.User(
+                user.getUsername(),
+                user.getPassword(),
+                new ArrayList<>()
+        );
     }
 }
+
 
