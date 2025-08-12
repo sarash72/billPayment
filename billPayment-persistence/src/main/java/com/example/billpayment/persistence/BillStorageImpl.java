@@ -24,7 +24,6 @@ public class BillStorageImpl implements BillServiceApi {
 
     @Override
     public void addBill(BillServiceDto addBillRequestDto) {
-        System.out.println("1..........."+addBillRequestDto.getUserId());
         User user = userRepository.findById(addBillRequestDto.getUserId())
                 .orElseThrow(() -> new RuntimeException("User not found with id: " + addBillRequestDto.getUserId()));
         Bill bill = billMapper.toBillEntity(addBillRequestDto);
@@ -34,7 +33,7 @@ public class BillStorageImpl implements BillServiceApi {
 
     @Override
     public List<BillServiceDto> getBillByUsername(BillWithUserRequestDto billWithUserRequestDto) {
-      return billMapper.toBillDtoList(billRepository.findByUser_Username(billWithUserRequestDto.getUsername()));
+        return billMapper.toBillDtoList(billRepository.findByUser_Username(billWithUserRequestDto.getUsername()));
     }
 
     @Override

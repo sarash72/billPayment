@@ -12,8 +12,6 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface BillServiceMapper {
 
-    //    @Mapping(source = "username", target = "username")
-//    @Mapping(source = "password", target = "password")
     BillServiceDto toBillRequestDto(BillApi billApi);
 
     BillWithUserRequestDto toBillWithUserRequestDto(BillWithUserRequestApi billWithUserRequestApi);

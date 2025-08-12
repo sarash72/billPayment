@@ -15,8 +15,6 @@ public class UserStorageImpl implements UserServiceApi {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
 
-//    @Autowired
-//    @Lazy
     private PasswordEncoder passwordEncoder;
 
     public UserStorageImpl(UserRepository userRepository, UserMapper userMapper) {

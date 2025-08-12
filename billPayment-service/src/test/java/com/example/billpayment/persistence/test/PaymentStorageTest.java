@@ -1,98 +1,115 @@
-//package com.example.billpayment.persistence.test;
-//
-//
-//import com.example.billpayment.persistence.PaymentStorageImpl;
-//import com.example.billpayment.persistence.entity.Bill;
-//import com.example.billpayment.persistence.entity.BillType;
-//import com.example.billpayment.persistence.entity.Payment;
-//import com.example.billpayment.persistence.entity.Status;
-//import com.example.billpayment.persistence.repository.BillRepository;
-//import com.example.billpayment.persistence.repository.PaymentRepository;
-//import com.example.billpayment.service.dto.payment.PaymentRequestDto;
-//import com.example.billpayment.service.dto.payment.PaymentResponseDto;
-//import org.junit.jupiter.api.BeforeEach;
-//import org.junit.jupiter.api.Test;
-//import org.junit.jupiter.api.extension.ExtendWith;
-//import org.mockito.ArgumentCaptor;
-//import org.mockito.InjectMocks;
-//import org.mockito.Mock;
-//import org.mockito.junit.jupiter.MockitoExtension;
-//
-//import java.math.BigDecimal;
-//import java.time.LocalDate;
-//import java.util.Date;
-//import java.util.Optional;
-//
-//import static org.junit.jupiter.api.Assertions.*;
-//import static org.mockito.Mockito.*;
-//
-//@ExtendWith(MockitoExtension.class)
-//public class PaymentStorageTest {
-//    @Mock
-//    private BillRepository billRepository;
-//
-//    @Mock
-//    private PaymentRepository paymentRepository;
-//
-//    @InjectMocks
-//    private PaymentStorageImpl paymentStorage;
-//
-//    private PaymentRequestDto paymentRequestDto;
-//    private Bill bill;
-//
-//    @BeforeEach
-//    void setup() {
-//        paymentRequestDto = new PaymentRequestDto();
-//        paymentRequestDto.setBillId(1L);
-//
-//        bill = new Bill();
-//        bill.setId(1L);
-//        bill.setStatus(Status.UNPAID);
-//        bill.setBillType(BillType.GAS);
-//        bill.setAmount(new BigDecimal(100));
-//    }
-//
-//    @Test
-//    void testPayBillSuccess() {
-//        when(billRepository.findById(1L)).thenReturn(Optional.of(bill));
-//
-//        PaymentResponseDto response = paymentStorage.payBill(paymentRequestDto);
-//
-//        assertNotNull(response);
-//        assertNotNull(response.getRefId());
-//
-//
-//        verify(paymentRepository, times(1)).save(any(Payment.class));
-//        verify(billRepository, times(1)).save(any(Bill.class));
-//
-//        assertEquals(Status.PAID, bill.getStatus());
-//        assertNotNull(bill.getPayment());
-//        System.out.println("Payment refId: " + bill.getPayment().getRefId());
-//
-//    }
-//
-//    @Test
-//    void testPayBillBillNotFound() {
-//        when(billRepository.findById(1L)).thenReturn(Optional.empty());
-//
-//        RuntimeException exception = assertThrows(RuntimeException.class, () -> {
-//            paymentStorage.payBill(paymentRequestDto);
-//        });
-//
-//        assertEquals("قبض پیدا نشد.", exception.getMessage());
-//    }
-//
-//    @Test
-//    void testPayBillAlreadyPaid() {
-//        bill.setStatus(Status.PAID);
-//        when(billRepository.findById(1L)).thenReturn(Optional.of(bill));
-//
-//        RuntimeException exception = assertThrows(RuntimeException.class, () -> {
-//            paymentStorage.payBill(paymentRequestDto);
-//        });
-//
-//        assertEquals("قبض قبلاً پرداخت شده است.", exception.getMessage());
-//    }
-//}
-//
-//
+package com.example.billpayment.persistence.test;
+
+
+import com.example.billpayment.api.dto.bill.BillApi;
+import com.example.billpayment.api.dto.enumeration.BillType;
+import com.example.billpayment.api.dto.enumeration.Status;
+import com.example.billpayment.api.dto.payment.PaymentRequestApi;
+import com.example.billpayment.api.dto.payment.PaymentType;
+
+import com.example.billpayment.api.exception.BillPaidException;
+import com.example.billpayment.api.exception.NotFoundBillException;
+import com.example.billpayment.service.api.BillAppService;
+import com.example.billpayment.service.api.PaymentService;
+import com.example.billpayment.service.api.persistence.PaymentServiceApi;
+import com.example.billpayment.service.dto.payment.PaymentRequestDto;
+import com.example.billpayment.service.impl.bill.mapper.BillServiceMapper;
+import com.example.billpayment.service.impl.payment.mapper.PaymentServiceMapper;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.Date;
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
+
+@ExtendWith(MockitoExtension.class)
+public class PaymentStorageTest {
+    @Mock
+    private BillAppService billRepository;
+
+    @Mock
+    private PaymentServiceApi paymentServiceApi;
+
+    @Mock
+    private PaymentServiceMapper paymentMapper;
+
+    @Mock
+    private BillAppService billAppService;
+
+    @Mock
+    private BillServiceMapper billServiceMapper;
+
+    @InjectMocks
+    private PaymentService paymentServiceImpl;
+
+    private PaymentRequestDto paymentRequestDto;
+    private PaymentRequestApi paymentRequestApi;
+
+    private BillApi bill;
+
+    @BeforeEach
+    void setup() {
+        paymentRequestDto = new PaymentRequestDto();
+        paymentRequestDto.setBillId("1");
+
+        paymentRequestApi.setPaymentType(PaymentType.CARD);
+        paymentRequestApi.setBillId("1");
+
+        bill = new BillApi();
+        bill.setStatus(Status.UNPAID);
+        bill.setBillType(BillType.ELECTRICITY);
+        bill.setAmount(new BigDecimal(100));
+    }
+
+    @Test
+    void testPayBillSuccess() throws NotFoundBillException, BillPaidException {
+        when(billAppService.getBillByBillId("1")).thenReturn(null);
+        when(billServiceMapper.toBillRequestDto(bill)).thenReturn(null);
+
+        when(paymentMapper.toPaymentRequestDto(paymentRequestApi)).thenCallRealMethod(); // یا mock مناسبی بزار
+        when(paymentMapper.toPaymentResponseApi(any())).thenAnswer(invocation -> invocation.getArgument(0));
+
+        // اجرای متد
+        var response = paymentServiceImpl.payBill(paymentRequestApi);
+
+        assertNotNull(response);
+        assertNotNull(response.getRefId());
+
+        verify(paymentServiceApi, times(1)).savePayment(any());
+        assertEquals(Status.PAID, bill.getStatus());
+    }
+
+
+    @Test
+    void testPayBillBillNotFound() {
+        when(billAppService.getBillByBillId("1")).thenReturn(null);
+
+        RuntimeException exception = assertThrows(RuntimeException.class, () -> {
+            paymentServiceImpl.payBill(paymentRequestApi);
+        });
+
+        assertEquals("Bill not found.", exception.getMessage());
+    }
+
+    @Test
+    void testPayBillAlreadyPaid() {
+        bill.setStatus(Status.PAID);
+        when(billAppService.getBillByBillId("1")).thenReturn(null);
+
+        RuntimeException exception = assertThrows(RuntimeException.class, () -> {
+            paymentServiceImpl.payBill(paymentRequestApi);
+        });
+
+        assertEquals("This bill is already paid.", exception.getMessage());
+    }
+}
+
+

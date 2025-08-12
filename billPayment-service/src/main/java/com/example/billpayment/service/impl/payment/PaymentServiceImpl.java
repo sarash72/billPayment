@@ -69,21 +69,12 @@ public class PaymentServiceImpl implements PaymentService {
         strategy.pay(paymentRequestDto.getBillId());
 
         myBill.setStatus(Status.PAID);
-        System.out.println("22222222222...."+myBill.getUserId());
-        System.out.println("..............:"+myBill.toString());
-        System.out.println(".111111111.............:"+myBill.getUserId().toString());
-      //  billAppService.addBill(billServiceMapper.toBillApiDto(myBill));
-
-
-//        payment.setBill(myBill);
-
         paymentServiceApi.savePayment(payment);
 
 
         PaymentResponseDto paymentResponseDto = new PaymentResponseDto();
         paymentResponseDto.setRefId(refId);
         return paymentMapper.toPaymentResponseApi(paymentResponseDto);
-//        return paymentMapper.toPaymentResponseApi(paymentServiceApi.payBill(paymentRequestDto));
     }
 
 }

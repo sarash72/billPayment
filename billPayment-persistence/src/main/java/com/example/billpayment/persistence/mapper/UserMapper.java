@@ -11,7 +11,6 @@ public interface UserMapper {
 
     User toUserEntity(final RegisterUserRequestDto userRequestDto);
 
-    //    @Mapping(source = "username", target = "username")
     @Mapping(source = "password", target = "password")
     RegisterUserRequestDto toRegisterUserRequestDto( User user);
 }

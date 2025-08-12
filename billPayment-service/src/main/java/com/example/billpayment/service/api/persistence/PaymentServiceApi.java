@@ -11,7 +11,5 @@ import java.util.List;
 
 public interface PaymentServiceApi {
 
-//    PaymentResponseDto payBill(PaymentRequestDto paymentRequestDto);
-
     void savePayment(PaymentDto paymentDto);
     }

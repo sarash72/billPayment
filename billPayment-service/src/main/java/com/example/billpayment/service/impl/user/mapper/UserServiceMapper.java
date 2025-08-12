@@ -8,7 +8,6 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring" )
 public interface UserServiceMapper {
 
-//    @Mapping(source = "username", target = "username")
-//    @Mapping(source = "password", target = "password")
+
     RegisterUserRequestDto toRegisterUserRequestDto( RegisterUserRequestApi userRequestDto);
 }
