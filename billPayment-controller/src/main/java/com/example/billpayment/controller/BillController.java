@@ -36,4 +36,9 @@ public class BillController implements BillFacade {
     public List<BillApi> getBillByUsername(@RequestBody BillWithUserRequestApi billWithUserRequestApi) {
         return billAppService.getBillByUsername(billWithUserRequestApi);
     }
+
+    @Override
+    public BillApi getBillByBillId(@RequestBody Long billId) {
+        return billAppService.getBillById(billId);
+    }
 }

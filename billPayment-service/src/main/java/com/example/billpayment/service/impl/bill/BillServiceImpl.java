@@ -23,7 +23,7 @@ public class BillServiceImpl implements BillAppService {
 
     @Override
     public void addBill(BillApi addBillRequestApi) {
-        billServiceApi.addBill(billServiceMapper.toAddBillRequestDto(addBillRequestApi));
+        billServiceApi.addBill(billServiceMapper.toBillRequestDto(addBillRequestApi));
     }
 
     @Override

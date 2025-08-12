@@ -8,6 +8,7 @@ import com.example.billpayment.service.api.persistence.PaymentServiceApi;
 import com.example.billpayment.service.dto.bill.BillServiceDto;
 import com.example.billpayment.service.dto.payment.PaymentRequestDto;
 import com.example.billpayment.service.dto.payment.PaymentResponseDto;
+import com.example.billpayment.service.impl.bill.mapper.BillServiceMapper;
 import com.example.billpayment.service.impl.payment.mapper.PaymentMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,11 +25,14 @@ public class PaymentServiceImpl implements PaymentService {
     private final PaymentServiceApi paymentServiceApi;
     private final PaymentMapper paymentMapper;
     private final BillAppService billAppService;
+    private final BillServiceMapper billServiceMapper;
 
-    public PaymentServiceImpl(PaymentServiceApi paymentServiceApi, PaymentMapper paymentMapper, BillAppService billAppService) {
+
+    public PaymentServiceImpl(PaymentServiceApi paymentServiceApi, PaymentMapper paymentMapper, BillAppService billAppService, BillServiceMapper billServiceMapper) {
         this.paymentServiceApi = paymentServiceApi;
         this.paymentMapper = paymentMapper;
         this.billAppService = billAppService;
+        this.billServiceMapper = billServiceMapper;
     }
 
     @Override
@@ -37,12 +41,12 @@ public class PaymentServiceImpl implements PaymentService {
         /** پیدا کردن قبض
          *
          */
-        Optional<BillServiceDto> optionalBill = billAppService..findById(paymentRequestDto.getBillId());
-        if (optionalBill.isEmpty()) {
+        BillServiceDto myBill = billServiceMapper.toBillRequestDto(billAppService.getBillById(paymentRequestDto.getBillId()));
+        if (myBill.ise) {
             throw new RuntimeException("قبض پیدا نشد.");
         }
 
-        Bill bill = optionalBill.get();
+        Bill bill = myBill.get();
 
         if (bill.getStatus() == Status.PAID) {
             throw new RuntimeException("قبض قبلاً پرداخت شده است.");

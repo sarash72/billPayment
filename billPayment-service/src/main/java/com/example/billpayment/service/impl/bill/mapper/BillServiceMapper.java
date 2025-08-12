@@ -14,7 +14,7 @@ public interface BillServiceMapper {
 
 //    @Mapping(source = "username", target = "username")
 //    @Mapping(source = "password", target = "password")
-    BillServiceDto toAddBillRequestDto(BillApi userRequestDto);
+    BillServiceDto toBillRequestDto(BillApi billApi);
 
     BillWithUserRequestDto toBillWithUserRequestDto(BillWithUserRequestApi billWithUserRequestApi);
 
