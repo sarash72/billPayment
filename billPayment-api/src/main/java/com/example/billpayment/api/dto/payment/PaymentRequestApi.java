@@ -12,7 +12,7 @@ import lombok.*;
 @Schema(name = "PaymentRequestApi", description = "Payment  service")
 public class PaymentRequestApi {
 
-   private Long billId;
+   private String billId;
 
    private PaymentType paymentType;
 }

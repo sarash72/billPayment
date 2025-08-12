@@ -9,15 +9,18 @@ import org.mapstruct.Mapper;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring" )
+@Mapper(componentModel = "spring")
 public interface BillServiceMapper {
 
-//    @Mapping(source = "username", target = "username")
+    //    @Mapping(source = "username", target = "username")
 //    @Mapping(source = "password", target = "password")
     BillServiceDto toBillRequestDto(BillApi billApi);
 
     BillWithUserRequestDto toBillWithUserRequestDto(BillWithUserRequestApi billWithUserRequestApi);
 
     List<BillApi> toBillApiDtoList(List<BillServiceDto> billServiceDtoList);
+
+    BillApi toBillApiDto(BillServiceDto billServiceDto);
+
 }
 

@@ -8,7 +8,7 @@ import com.example.billpayment.service.dto.payment.PaymentResponseDto;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring" )
-public interface PaymentMapper {
+public interface PaymentServiceMapper {
 
     PaymentRequestDto toPaymentRequestDto(PaymentRequestApi paymentRequestApi);
     PaymentResponseApi toPaymentResponseApi(PaymentResponseDto paymentResponseDto);

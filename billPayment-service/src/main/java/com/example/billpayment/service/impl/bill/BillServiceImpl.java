@@ -32,8 +32,9 @@ public class BillServiceImpl implements BillAppService {
     }
 
     @Override
-    public BillApi getBillById(Long billId) {
-        return null;
+    public BillApi getBillByBillId(String billId) {
+
+        return billServiceMapper.toBillApiDto(billServiceApi.getBillByBillId(billId));
     }
 }
 

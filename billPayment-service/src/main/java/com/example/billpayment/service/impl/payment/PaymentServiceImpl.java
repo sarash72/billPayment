@@ -10,14 +10,13 @@ import com.example.billpayment.service.dto.bill.BillServiceDto;
 import com.example.billpayment.service.dto.payment.PaymentDto;
 import com.example.billpayment.service.dto.payment.PaymentRequestDto;
 import com.example.billpayment.service.dto.payment.PaymentResponseDto;
+import com.example.billpayment.service.impl.bill.BillServiceImpl;
 import com.example.billpayment.service.impl.bill.mapper.BillServiceMapper;
-import com.example.billpayment.service.impl.payment.mapper.PaymentMapper;
-import lombok.RequiredArgsConstructor;
+import com.example.billpayment.service.impl.payment.mapper.PaymentServiceMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -25,12 +24,12 @@ import java.util.UUID;
 public class PaymentServiceImpl implements PaymentService {
 
     private final PaymentServiceApi paymentServiceApi;
-    private final PaymentMapper paymentMapper;
+    private final PaymentServiceMapper paymentMapper;
     private final BillAppService billAppService;
     private final BillServiceMapper billServiceMapper;
 
 
-    public PaymentServiceImpl(PaymentServiceApi paymentServiceApi, PaymentMapper paymentMapper, BillAppService billAppService, BillServiceMapper billServiceMapper) {
+    public PaymentServiceImpl(PaymentServiceApi paymentServiceApi, PaymentServiceMapper paymentMapper, BillAppService billAppService, BillServiceMapper billServiceMapper, BillServiceImpl billServiceImpl) {
         this.paymentServiceApi = paymentServiceApi;
         this.paymentMapper = paymentMapper;
         this.billAppService = billAppService;
@@ -44,7 +43,7 @@ public class PaymentServiceImpl implements PaymentService {
         /** پیدا کردن قبض
          *
          */
-        BillServiceDto myBill = billServiceMapper.toBillRequestDto(billAppService.getBillById(paymentRequestDto.getBillId()));
+        BillServiceDto myBill = billServiceMapper.toBillRequestDto(billAppService.getBillByBillId(paymentRequestDto.getBillId()));
         if (myBill.getBillTd().isEmpty()) {
             throw new RuntimeException("قبض پیدا نشد.");
         }
@@ -59,15 +58,21 @@ public class PaymentServiceImpl implements PaymentService {
                 .paymentDate(LocalDate.now())
                 .bill(myBill)
                 .build();
-        PaymentStrategy strategy = PaymentFactory.getPaymentStrategy(paymentRequestDto.getPaymentType());
-        paymentServiceApi.savePayment(payment);
-
 
         /**
          * pay with payment type
          */
+        PaymentStrategy strategy = PaymentFactory.getPaymentStrategy(paymentRequestDto.getPaymentType());
         strategy.pay(paymentRequestDto.getBillId());
-        return paymentMapper.toPaymentResponseApi(paymentServiceApi.payBill(paymentRequestDto));
+        paymentServiceApi.savePayment(payment);
+
+        myBill.setStatus(Status.PAID);
+        billAppService.addBill(billServiceMapper.toBillApiDto(myBill));
+
+        PaymentResponseDto paymentResponseDto = new PaymentResponseDto();
+        paymentResponseDto.setRefId(refId);
+        return paymentMapper.toPaymentResponseApi(paymentResponseDto);
+//        return paymentMapper.toPaymentResponseApi(paymentServiceApi.payBill(paymentRequestDto));
     }
 
 }

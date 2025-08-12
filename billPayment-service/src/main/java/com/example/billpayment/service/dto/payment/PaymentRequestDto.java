@@ -8,6 +8,6 @@ import lombok.*;
 @Builder
 public class PaymentRequestDto {
 
-   private Long billId;
+   private String billId;
    private PaymentType paymentType;
 }

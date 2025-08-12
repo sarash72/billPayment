@@ -37,7 +37,7 @@ public class BillStorageImpl implements BillServiceApi {
     }
 
     @Override
-    public BillServiceDto getBillById(Long billId) {
+    public BillServiceDto getBillByBillId(String billId) {
         return billMapper.toBillDto(billRepository.findByBillId(billId));
     }
 

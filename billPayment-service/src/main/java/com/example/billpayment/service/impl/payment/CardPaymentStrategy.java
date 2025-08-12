@@ -15,7 +15,7 @@ public class CardPaymentStrategy implements PaymentStrategy{
     }
 
     @Override
-    public void pay(Long billID) {
+    public void pay(String billID) {
 
     LOGGER.info("payment with card with billID: {} ",billID);
 

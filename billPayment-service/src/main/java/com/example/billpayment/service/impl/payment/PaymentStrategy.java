@@ -6,5 +6,5 @@ import com.example.billpayment.service.dto.payment.PaymentType;
 public interface PaymentStrategy {
     PaymentType getPaymentType();
 
-    void pay(Long billId);
+    void pay(String billId);
 }

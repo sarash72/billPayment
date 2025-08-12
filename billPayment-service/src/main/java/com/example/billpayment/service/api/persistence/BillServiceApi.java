@@ -1,8 +1,6 @@
 package com.example.billpayment.service.api.persistence;
 
 
-import com.example.billpayment.api.dto.bill.BillApi;
-import com.example.billpayment.api.dto.bill.BillWithUserRequestApi;
 import com.example.billpayment.service.dto.bill.BillServiceDto;
 import com.example.billpayment.service.dto.bill.BillWithUserRequestDto;
 
@@ -14,6 +12,6 @@ public interface BillServiceApi {
 
     List<BillServiceDto> getBillByUsername(BillWithUserRequestDto billWithUserRequestDto);
 
-    BillServiceDto getBillById(Long billId);
+    BillServiceDto getBillByBillId(String billId);
 
 }
