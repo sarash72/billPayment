@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-    <groupId>com.example</groupId>
+    <groupId>com.billPayment</groupId>
     <artifactId>billPayment</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>billPayment</name>
@@ -39,11 +39,10 @@
     </properties>
 
     <modules>
-        <module>billPayment-application</module>
-        <module>billPayment-api</module>
-        <module>billPayment-controller</module>
-        <module>billPayment-persistence</module>
-        <module>billPayment-service</module>
+        <module>bill</module>
+        <module>payment</module>
+        <module>identity</module>
+        <module>notification</module>
 
     </modules>
     <dependencies>
