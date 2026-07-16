@@ -1,4 +1,4 @@
-package com.billPayment.bill.api.dto.request;
+package com.billPayment.bill.application.dto.request;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

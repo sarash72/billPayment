@@ -1,4 +1,4 @@
-package com.billPayment.bill.api.dto.response;
+package com.billPayment.bill.application.dto.response;
 
 import com.billPayment.bill.persistence.entity.BillStatus;
 
